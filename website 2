@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>open code</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition duration-300">
+
+<!-- NAVBAR -->
+<nav class="fixed w-full bg-white dark:bg-gray-800 shadow z-50">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-indigo-600">TRY ME</h1>
+
+    <ul class="hidden md:flex space-x-6">
+      <li><a href="#hero" class="hover:text-indigo-500 transition">Home</a></li>
+      <li><a href="#stats" class="hover:text-indigo-500 transition">Stats</a></li>
+      <li><a href="#features" class="hover:text-indigo-500 transition">Features</a></li>
+    </ul>
+
+    <div class="flex gap-3">
+      <button id="themeToggle" class="bg-indigo-500 text-white px-3 py-1 rounded hover:bg-indigo-600 transition">🌙</button>
+      <button id="menuBtn" class="md:hidden text-2xl">☰</button>
+    </div>
+  </div>
+
+  <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-gray-800 px-4 pb-4">
+    <a href="#hero" class="block py-2">Home</a>
+    <a href="#stats" class="block py-2">Stats</a>
+    <a href="#features" class="block py-2">Features</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="pt-32 pb-24 text-center bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
+  <h2 class="text-5xl font-bold mb-4">It's me Parjanya Soni</h2>
+  <p class="max-w-xl mx-auto mb-6 text-lg opacity-90">
+    Modern, responsive and interactive web experience.
+  </p>
+  <button id="openModal"
+    class="bg-white text-indigo-600 px-8 py-3 rounded-full font-semibold hover:scale-110 transition">
+    Learn More
+  </button>
+</section>
+
+<!-- STATS -->
+<section id="stats" class="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-3 gap-8 text-center">
+  <div class="bg-white dark:bg-gray-800 p-6 rounded shadow hover:shadow-xl transition">
+    <h3 class="text-4xl font-bold text-indigo-600 counter" data-target="69">0</h3>
+    <p class="mt-2">Projects</p>
+  </div>
+  <div class="bg-white dark:bg-gray-800 p-6 rounded shadow hover:shadow-xl transition">
+    <h3 class="text-4xl font-bold text-indigo-600 counter" data-target="67">0</h3>
+    <p class="mt-2">Clients</p>
+  </div>
+  <div class="bg-white dark:bg-gray-800 p-6 rounded shadow hover:shadow-xl transition">
+    <h3 class="text-4xl font-bold text-indigo-600 counter" data-target="8">0</h3>
+    <p class="mt-2">Years Experience</p>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="bg-gray-200 dark:bg-gray-800 py-20">
+  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8">
+    <div class="p-6 bg-white dark:bg-gray-700 rounded hover:-translate-y-2 transition">
+      <h3 class="text-xl font-semibold mb-2">Clean UI</h3>
+      <p>Simple and modern design approach.</p>
+    </div>
+    <div class="p-6 bg-white dark:bg-gray-700 rounded hover:-translate-y-2 transition">
+      <h3 class="text-xl font-semibold mb-2">Fast Performance</h3>
+      <p>Optimized with minimal code.</p>
+    </div>
+    <div class="p-6 bg-white dark:bg-gray-700 rounded hover:-translate-y-2 transition">
+      <h3 class="text-xl font-semibold mb-2">Interactive</h3>
+      <p>JS-powered dynamic elements.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-gray-900 text-gray-300 text-center py-6">
+  <p>© 2026 MyWebsite | Built with ❤️</p>
+</footer>
+
+<!-- SCROLL TO TOP -->
+<button id="scrollTop"
+  class="hidden fixed bottom-6 right-6 bg-indigo-500 text-white px-4 py-2 rounded-full hover:bg-indigo-600 transition">
+  ⬆
+</button>
+
+<!-- MODAL -->
+<div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white dark:bg-gray-800 p-6 rounded shadow-lg max-w-sm text-center">
+    <h3 class="text-2xl font-bold mb-3">About This Site</h3>
+    <p class="mb-4">Built using HTML, Tailwind CSS & JavaScript.</p>
+    <button id="closeModal" class="bg-indigo-500 text-white px-4 py-2 rounded">Close</button>
+  </div>
+</div>
+
+<!-- JS -->
+<script>
+  // Mobile Menu
+  menuBtn.onclick = () => mobileMenu.classList.toggle("hidden");
+
+  // Dark Mode
+  themeToggle.onclick = () => document.documentElement.classList.toggle("dark");
+
+  // Modal
+  openModal.onclick = () => modal.classList.remove("hidden");
+  closeModal.onclick = () => modal.classList.add("hidden");
+
+  // Scroll to Top
+  const scrollBtn = document.getElementById("scrollTop");
+  window.addEventListener("scroll", () => {
+    scrollBtn.classList.toggle("hidden", window.scrollY < 300);
+  });
+  scrollBtn.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
+  // Counter Animation
+  const counters = document.querySelectorAll(".counter");
+  counters.forEach(counter => {
+    const update = () => {
+      const target = +counter.dataset.target;
+      const value = +counter.innerText;
+      if (value < target) {
+        counter.innerText = value + 1;
+        setTimeout(update, 20);
+      }
+    };
+    update();
+  });
+</script>
+
+</body>
+</html>
